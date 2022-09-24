@@ -37,19 +37,19 @@
         "KeyVaultName": {
             "type": "String",
             "metadata" : {
-                "description" : "Enter the name of the Key Vault that stores your Zscaler API key and Zscaler API password"
+                "description" : "Enter the name of the key vault that stores your Zscaler API key and Zscaler password"
             }
         },
         "KeySecretName": {
             "type": "String",
             "metadata": {
-                "description": "Enter the name of the Key Vault Secret that contains the value of your Zscaler API key"
+                "description": "Enter the name of the key vault Secret that contains the value of your Zscaler API key"
             }
         },
         "PasswordSecretName": {
             "type": "String",
             "metadata": {
-                "description": "Enter the name of the Key Vault Secret that contains the value of your Zscaler API password"
+                "description": "Enter the name of the key vault Secret that contains the value of your Zscaler password"
             }
         }
 
