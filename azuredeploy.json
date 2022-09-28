@@ -109,7 +109,7 @@
             "properties": {
                 "state": "Enabled",
                 "integrationAccount": {
-                    "id": "['Microsoft.Logic/integrationAccounts', parameters('IntegrationAccountName'))]"
+                    "id": "[resourceId('Microsoft.Logic/integrationAccounts', parameters('IntegrationAccountName'))]"
                 },
                 "definition": {
                     "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
@@ -164,7 +164,7 @@
                                     }
                                 },
                                 "method": "get",
-                                "path": "[concat('/secrets/@{encodeURIComponent(''', parameters('PasswordSecretName', ''')}/value')]"
+                                "path": "[concat('/secrets/@{encodeURIComponent(''', parameters('PasswordSecretName'), ''')}/value')]"
                             }
                         },
                         "Entities_-_Get_URLs": {
@@ -470,7 +470,7 @@
                         },
                         "Execute_JavaScript_Code_Obfuscate": {
                             "inputs": {
-                                "code":  "[concat('', 'var tstamp = workflowContext.actions.Execute_JavaScript_Code_Date.outputs.body;\r\nvar key = \"', body('Get_Secret_-_API_Key?['value'],'\";\r\nvar high = tstamp.substring(tstamp.length - 6);\r\nvar low = (parseInt(high) >> 1).toString();\r\nvar apiKey = \"\";\r\nwhile (low.length < 6) {\r\n    low = \"0\" + low;\r\n}\r\nfor (var i = 0; i < high.length; i++) {\r\n    apiKey += key.charAt(parseInt(high.charAt(i)));\r\n}\r\nfor (var j = 0; j < low.length; j++) {\r\n    apiKey += key.charAt(parseInt(low.charAt(j)) + 2);\r\n}\r\nreturn apiKey;\r\n')]"
+                                "code": "var tstamp = workflowContext.actions.Execute_JavaScript_Code_Date.outputs.body;\r\nvar key = \"@{body('Get_Secret_-_API_Key')?['value']}\";\r\nvar high = tstamp.substring(tstamp.length - 6);\r\nvar low = (parseInt(high) >> 1).toString();\r\nvar apiKey = \"\";\r\nwhile (low.length < 6) {\r\n    low = \"0\" + low;\r\n}\r\nfor (var i = 0; i < high.length; i++) {\r\n    apiKey += key.charAt(parseInt(high.charAt(i)));\r\n}\r\nfor (var j = 0; j < low.length; j++) {\r\n    apiKey += key.charAt(parseInt(low.charAt(j)) + 2);\r\n}\r\nreturn apiKey;\r\n"
                             },
                             "runAfter": {
                                 "Execute_JavaScript_Code_Date": [
@@ -483,7 +483,7 @@
                             "inputs": {
                                 "body": {
                                     "apiKey": "@{outputs('Execute_JavaScript_Code_Obfuscate')?['body']}",
-                                    "password": "@body('Get_Secret_-_Password')?['value']",
+                                    "password": "@{body('Get_Secret_-_Password')?['value']}",
                                     "timestamp": "@{outputs('Execute_JavaScript_Code_Date')?['body']}",
                                     "username": "[parameters('ZscalerUsername')]"
                                 },
