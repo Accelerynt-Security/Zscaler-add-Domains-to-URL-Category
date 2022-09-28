@@ -35,19 +35,19 @@
             }
         },
         "KeyVaultName": {
-            "type": "String",
+            "type": "string",
             "metadata" : {
                 "description" : "Enter the name of the key vault that stores your Zscaler API key and Zscaler password"
             }
         },
         "KeySecretName": {
-            "type": "String",
+            "type": "string",
             "metadata": {
                 "description": "Enter the name of the key vault Secret that contains the value of your Zscaler API key"
             }
         },
         "PasswordSecretName": {
-            "type": "String",
+            "type": "string",
             "metadata": {
                 "description": "Enter the name of the key vault Secret that contains the value of your Zscaler password"
             }
@@ -109,7 +109,7 @@
             "properties": {
                 "state": "Enabled",
                 "integrationAccount": {
-                    "id": "[resourceId(subscription().subscriptionId, resourceGroup().name, 'Microsoft.Logic/integrationAccounts/', parameters('IntegrationAccountName'))]"
+                    "id": "['Microsoft.Logic/integrationAccounts', parameters('IntegrationAccountName'))]"
                 },
                 "definition": {
                     "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
