@@ -2,8 +2,18 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "metadata": {
-        "comments": "This playbook will extract domains from Microsoft Sentinel incidents and add them to a Zscaler Custom URL Category of your choice.",
-        "author": "Accelerynt"
+        "title": "AS-Zscaler-Integration", 
+        "description": "This playbook will extract domains from Microsoft Sentinel incidents and add them to a Zscaler Custom URL Category of your choice.",
+        "prerequisites": "1. A configured Zscaler admin account is needed, along with a username, password, and API token for this account. 2. A Zscaler URL Category is also needed. 3. A Microsoft Azure integration account and azure key vault containing the Zscaler account password and API token must also be set up. Support for the set up and configuration of each of these items can be found here: https://github.com/Accelerynt-Security/AS-Zscaler-Integration",
+        "lastUpdateTime": "2022-09-29T18:18:05Z",
+        "entities": ["URL"], 
+        "tags": ["Microsoft Sentinel", "Incident", "Zscaler", "URL Categories"], 
+        "support": {
+            "tier": "developer"
+        },
+        "author": {
+            "name": "Accelerynt"
+        }
     },
     "parameters": {
         "PlaybookName": {
@@ -64,10 +74,11 @@
             "apiVersion": "2016-06-01",
             "name": "[variables('azuresentinel')]",
             "location": "[resourceGroup().location]",
+            "kind": "V1",
             "properties": {
                 "displayName": "[parameters('PlaybookName')]",
-                "customParameterValues": {
-                },
+                "customParameterValues": {},
+                "parameterValueType": "Alternative",
                 "api": {
                     "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azuresentinel')]"
                 }
@@ -84,8 +95,7 @@
                 "alternativeParameterValues": {
                     "vaultName": "[parameters('KeyVaultName')]"
                 },
-                "customParameterValues": {
-                },
+                "customParameterValues": {},
                 "api": {
                     "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/keyvault')]"
                 }
