@@ -19,9 +19,9 @@ This playbook is intended to be run from a Microsoft Sentinel incident. It will 
 The following items are required under the template settings during deployment: 
 
 * The URL of your Zscaler organization
-* A configured Zscaler [admin account](https://github.com/Accelerynt-Security/AS-Zscaler-Integration#zscaler-admin-account)
-* A Zscaler [API key](https://github.com/Accelerynt-Security/AS-Zscaler-Integration#zscaler-api-key)
-* The name of the [Zscaler custom URL category](https://github.com/Accelerynt-Security/AS-Zscaler-Integration#zscaler-url-category) you wish to add the Microsoft Sentinel incident domains to
+* A configured Zscaler [admin account](https://github.com/Accelerynt-Security/AS-Zscaler-Integration#Zscaler-admin-account)
+* A Zscaler [API key](https://github.com/Accelerynt-Security/AS-Zscaler-Integration#Zscaler-api-key)
+* The name of the [Zscaler custom URL category](https://github.com/Accelerynt-Security/AS-Zscaler-Integration#Zscaler-url-category) you wish to add the Microsoft Sentinel incident domains to
 * A Microsoft Azure [integration account](https://github.com/Accelerynt-Security/AS-Zscaler-Integration#create-an-integration-acount)
 * A Microsoft Azure [key vault secret](https://github.com/Accelerynt-Security/AS-Zscaler-Integration#create-an-azure-key-vault-secret) containing your Okta API Token
 
@@ -171,11 +171,11 @@ In the **Instance Details** section:
 
 * **Zscaler Custom URL Category Name**: Enter a Zscaler Custom URL Category Name. 
 
-* **Key Vault Name**:  Enter the name of the Key Vault that stores your Zscaler API key and Zscaler password. 
+* **Key Vault Name**:  Enter the name of the key vault that stores your Zscaler API key and Zscaler password. 
 
-* **Zscaler API Key**: Enter the name of the Key Vault Secret that contains the value of your Zscaler API key. 
+* **Zscaler API Key**: Enter the name of the key vault Secret that contains the value of your Zscaler API key. 
 
-* **Zscaler Password**: Enter the name of the Key Vault Secret that contains the value of your Zscaler password. 
+* **Zscaler Password**: Enter the name of the key vault Secret that contains the value of your Zscaler password. 
 
 Towards the bottom, click on “**Review + create**”. 
 
