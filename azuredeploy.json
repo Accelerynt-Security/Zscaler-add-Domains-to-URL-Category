@@ -147,7 +147,7 @@
                         }
                     },
                     "actions": {
-                        "Get_Secret_-_API_Key": {
+                        "Get_Secret_API_Key": {
                             "runAfter": {},
                             "type": "ApiConnection",
                             "inputs": {
@@ -162,7 +162,7 @@
                         },
                         "Get_Secret_-_Password": {
                             "runAfter": {
-                                "Get_Secret_-_API_Key": [
+                                "Get_Secret_API_Key": [
                                     "Succeeded"
                                 ]
                             },
@@ -480,7 +480,7 @@
                         },
                         "Execute_JavaScript_Code_Obfuscate": {
                             "inputs": {
-                                "code": "var tstamp = workflowContext.actions.Execute_JavaScript_Code_Date.outputs.body;\r\nvar key = \"workflowContext.actions.Get_Secret_-_API_Key.outputs.body.value\";\r\nvar high = tstamp.substring(tstamp.length - 6);\r\nvar low = (parseInt(high) >> 1).toString();\r\nvar apiKey = \"\";\r\nwhile (low.length < 6) {\r\n    low = \"0\" + low;\r\n}\r\nfor (var i = 0; i < high.length; i++) {\r\n    apiKey += key.charAt(parseInt(high.charAt(i)));\r\n}\r\nfor (var j = 0; j < low.length; j++) {\r\n    apiKey += key.charAt(parseInt(low.charAt(j)) + 2);\r\n}\r\nreturn apiKey;\r\n"
+                                "code": "var tstamp = workflowContext.actions.Execute_JavaScript_Code_Date.outputs.body;\r\nvar key = workflowContext.actions.Get_Secret_API_Key.outputs.body.value;\r\nvar high = tstamp.substring(tstamp.length - 6);\r\nvar low = (parseInt(high) >> 1).toString();\r\nvar apiKey = \"\";\r\nwhile (low.length < 6) {\r\n    low = \"0\" + low;\r\n}\r\nfor (var i = 0; i < high.length; i++) {\r\n    apiKey += key.charAt(parseInt(high.charAt(i)));\r\n}\r\nfor (var j = 0; j < low.length; j++) {\r\n    apiKey += key.charAt(parseInt(low.charAt(j)) + 2);\r\n}\r\nreturn apiKey;\r\n"
                             },
                             "runAfter": {
                                 "Execute_JavaScript_Code_Date": [
@@ -502,7 +502,7 @@
                                     "Content-Type": "application/json"
                                 },
                                 "method": "POST",
-                                "uri": "[concat('', parameters('ZscalerURL'), '/api/v1/authenticatedSession')]"
+                                "uri": "[concat(parameters('ZscalerURL'), '/api/v1/authenticatedSession')]"
                             },
                             "runAfter": {
                                 "Execute_JavaScript_Code_Obfuscate": [
@@ -568,7 +568,7 @@
                                     "Content-Type": "application/json"
                                 },
                                 "method": "GET",
-                                "uri": "[concat('', parameters('ZscalerURL'), '/api/v1/urlCategories?customOnly=true')]"
+                                "uri": "[concat(parameters('ZscalerURL'), '/api/v1/urlCategories?customOnly=true')]"
                             },
                             "runAfter": {
                                 "Parse_JSON-_Authentication_Headers": [
@@ -779,7 +779,7 @@
                                     "inputs": {
                                         "cookie": "@body('Parse_JSON-_Authentication_Headers')?['Set-Cookie']",
                                         "method": "POST",
-                                        "uri": "[concat('', parameters('ZscalerURL'), '/api/v1/status/activate')]"
+                                        "uri": "[concat(parameters('ZscalerURL'), '/api/v1/status/activate')]"
                                     },
                                     "runAfter": {
                                         "HTTP-_Update_URL_Category": [
@@ -799,7 +799,7 @@
                                         },
                                         "cookie": "@body('Parse_JSON-_Authentication_Headers')?['Set-Cookie']",
                                         "method": "PUT",
-                                        "uri": "@{concat('', parameters('ZscalerURL'), '/api/v1/urlCategories/', variables('URL Category Id'), '?action=ADD_TO_LIST')}"
+                                        "uri": "[concat(parameters('ZscalerURL'), '/api/v1/urlCategories/@{variables('URL Category Id')}?action=ADD_TO_LIST')]"
                                     },
                                     "runAfter": {},
                                     "type": "Http"
@@ -840,7 +840,7 @@
                                     "Content-Type": "application/json"
                                 },
                                 "method": "DELETE",
-                                "uri": "[concat('', parameters('ZscalerURL'), '/api/v1/authenticatedSession')]"
+                                "uri": "[concat(parameters('ZscalerURL'), '/api/v1/authenticatedSession')]"
                             },
                             "runAfter": {
                                 "Condition-_Check_that_URL_Category_name_was_found": [
