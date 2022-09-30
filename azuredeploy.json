@@ -799,7 +799,7 @@
                                         },
                                         "cookie": "@body('Parse_JSON-_Authentication_Headers')?['Set-Cookie']",
                                         "method": "PUT",
-                                        "uri": "[concat(parameters('ZscalerURL'), '/api/v1/urlCategories/@{variables('URL Category Id')}?action=ADD_TO_LIST')]"
+                                        "uri": "[concat(parameters('ZscalerURL'), '/api/v1/urlCategories/@{variables(''URL Category Id'')}?action=ADD_TO_LIST')]"
                                     },
                                     "runAfter": {},
                                     "type": "Http"
