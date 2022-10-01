@@ -1,11 +1,11 @@
-# AS-Zscaler-Integration
+# Zscaler-add-Domains-to-URL-Category
 
 Author: Accelerynt
 
 For any technical questions, please contact info@accelerynt.com  
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAccelerynt-Security%2FAS-Zscaler-Integration%2Fmaster%2Fazuredeploy.json)
-[![Deploy to Azure Gov](https://aka.ms/deploytoazuregovbutton)](https://portal.azure.us/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAccelerynt-Security%2FAS-Zscaler-Integration%2Fmaster%2Fazuredeploy.json)    
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAccelerynt-Security%2FZscaler-add-Domains-to-URL-Category%2Fmaster%2Fazuredeploy.json)
+[![Deploy to Azure Gov](https://aka.ms/deploytoazuregovbutton)](https://portal.azure.us/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAccelerynt-Security%2FZscaler-add-Domains-to-URL-Category%2Fmaster%2Fazuredeploy.json)    
 
 This playbook is intended to be run from a Microsoft Sentinel incident. It will extract domains from Microsoft Sentinel incidents and add them to a Zscaler Custom URL Category of your choice.
 
@@ -19,11 +19,11 @@ This playbook is intended to be run from a Microsoft Sentinel incident. It will 
 The following items are required under the template settings during deployment: 
 
 * The URL of your Zscaler organization
-* A configured Zscaler [admin account](https://github.com/Accelerynt-Security/AS-Zscaler-Integration#Zscaler-admin-account)
-* A Zscaler [API key](https://github.com/Accelerynt-Security/AS-Zscaler-Integration#Zscaler-api-key)
-* The name of the [Zscaler custom URL category](https://github.com/Accelerynt-Security/AS-Zscaler-Integration#Zscaler-url-category) you wish to add the Microsoft Sentinel incident domains to
-* A Microsoft Azure [integration account](https://github.com/Accelerynt-Security/AS-Zscaler-Integration#create-an-integration-acount)
-* A Microsoft Azure [key vault secret](https://github.com/Accelerynt-Security/AS-Zscaler-Integration#create-an-azure-key-vault-secret) containing your Okta API Token
+* A configured Zscaler [admin account](https://github.com/Accelerynt-Security/Zscaler-add-Domains-to-URL-Category#zscaler-admin-account)
+* A Zscaler [API key](https://github.com/Accelerynt-Security/Zscaler-add-Domains-to-URL-Category#zscaler-api-key)
+* The name of the [Zscaler custom URL category](https://github.com/Accelerynt-Security/Zscaler-add-Domains-to-URL-Category#zscaler-url-category) you wish to add the Microsoft Sentinel incident domains to
+* A Microsoft Azure [integration account](https://github.com/Accelerynt-Security/Zscaler-add-Domains-to-URL-Category#create-an-integration-acount)
+* A Microsoft Azure [key vault secret](https://github.com/Accelerynt-Security/Zscaler-add-Domains-to-URL-Category#create-an-azure-key-vault-secret) containing your Okta API Token
 
 # 
 ### Setup
@@ -107,7 +107,7 @@ From the "**Overview**" page, select an existing integration account and take no
 
 ![Zscaler_Integration_Account_1](Images/Zscaler_Integration_Account_1.png)
 
-Select the subscription and resource group that this playbook will be deployed to and a name for the integration account, such as "**AS-Zscaler-Integration**". Review the region and select a pricing tier, then click "**Review + create**".
+Select the subscription and resource group that this playbook will be deployed to and a name for the integration account, such as "**Zscaler-add-Domains-to-URL-Category**". Review the region and select a pricing tier, then click "**Review + create**".
 
 ![Zscaler_Integration_Account_2](Images/Zscaler_Integration_Account_2.png)
 
@@ -129,7 +129,7 @@ Select an existing key vault or create a new one. From the key vault overview pa
 
 ![Zscaler_Key_Vault_1](Images/Zscaler_Key_Vault_1.png)
 
-Choose a name for the secret, such as "**AS-Zscaler-Integration-API-Key**” and enter the Zscaler API key copied previously in the "**Value**" field. All other settings can be left as is. Click "**Create**". 
+Choose a name for the secret, such as "**Zscaler-add-Domains-to-URL-Category-API-Key**” and enter the Zscaler API key copied previously in the "**Value**" field. All other settings can be left as is. Click "**Create**". 
 
 ![Zscaler_Key_Vault_2](Images/Zscaler_Key_Vault_2.png)
 
@@ -137,7 +137,7 @@ Repeat this process for your Zscaler password.
 
 ![Zscaler_Key_Vault_3](Images/Zscaler_Key_Vault_3.png)
 
-Once both secrets have been added to the vault, navigate to the "**Access policies**" menu option, also found under the "**Settings**" section on the key vault page menu. Leave this page open, as you will need to return to it once the playbook has been deployed. See [Granting Access to Azure Key Vault](https://github.com/Accelerynt-Security/AS-Zscaler-Integration#granting-access-to-azure-key-vault).
+Once both secrets have been added to the vault, navigate to the "**Access policies**" menu option, also found under the "**Settings**" section on the key vault page menu. Leave this page open, as you will need to return to it once the playbook has been deployed. See [Granting Access to Azure Key Vault](https://github.com/Accelerynt-Security/Zscaler-add-Domains-to-URL-Category#granting-access-to-azure-key-vault).
 
 ![Zscaler_Key_Vault_4](Images/Zscaler_Key_Vault_4.png)
 
@@ -148,10 +148,10 @@ To configure and deploy this playbook:
 
 Open your browser and ensure you are logged into your Microsoft Sentinel workspace. In a separate tab, open the link to our playbook on the Arbala Security GitHub Repository:
 
-https://github.com/Accelerynt-Security/AS-Zscaler-Integration
+https://github.com/Accelerynt-Security/Zscaler-add-Domains-to-URL-Category
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAccelerynt-Security%2FAS-Zscaler-Integration%2Fmaster%2Fazuredeploy.json)
-[![Deploy to Azure Gov](https://aka.ms/deploytoazuregovbutton)](https://portal.azure.us/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAccelerynt-Security%2FAS-Zscaler-Integration%2Fmaster%2Fazuredeploy.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAccelerynt-Security%2FZscaler-add-Domains-to-URL-Category%2Fmaster%2Fazuredeploy.json)
+[![Deploy to Azure Gov](https://aka.ms/deploytoazuregovbutton)](https://portal.azure.us/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAccelerynt-Security%2FZscaler-add-Domains-to-URL-Category%2Fmaster%2Fazuredeploy.json)
 
 Click the “**Deploy to Azure**” button at the bottom and it will bring you to the custom deployment template.
 
@@ -161,7 +161,7 @@ In the **Project Details** section:
 
 In the **Instance Details** section:  
                                                   
-* **Playbook Name**: This can be left as "**AS-Zscaler-Integration**" or you may change it. 
+* **Playbook Name**: This can be left as "**Zscaler-add-Domains-to-URL-Category**" or you may change it. 
 
 * **IntegrationAccountName**: Enter the name of the Microsoft integration account this playbook will use. Please note that the playbook and integration account must share the same resource group.
 
@@ -171,11 +171,11 @@ In the **Instance Details** section:
 
 * **Zscaler Custom URL Category Name**: Enter a Zscaler Custom URL Category Name. 
 
-* **Key Vault Name**:  Enter the name of the key vault that stores your Zscaler API key and Zscaler password. 
+* **Key Vault Name**:  Enter the name of the Key Vault that stores your Zscaler API key and Zscaler password. 
 
-* **Zscaler API Key**: Enter the name of the key vault Secret that contains the value of your Zscaler API key. 
+* **Zscaler API Key**: Enter the name of the Key Vault Secret that contains the value of your Zscaler API key. 
 
-* **Zscaler Password**: Enter the name of the key vault Secret that contains the value of your Zscaler password. 
+* **Zscaler Password**: Enter the name of the Key Vault Secret that contains the value of your Zscaler password. 
 
 Towards the bottom, click on “**Review + create**”. 
 
@@ -222,7 +222,7 @@ Select the "**Get**" checkbox under "**Secret permissions**", then click "**Next
 
 ![Zscaler_Access_2](Images/Zscaler_Access_2.png)
 
-Paste "**AS-Zscaler-Integration**" into the principal search box and click the option that appears. Click "**Next**" towards the bottom of the page.
+Paste "**Zscaler-add-Domains-to-URL-Category**" into the principal search box and click the option that appears. Click "**Next**" towards the bottom of the page.
 
 ![Zscaler_Access_3](Images/Zscaler_Access_3.png)
 
