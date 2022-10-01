@@ -107,7 +107,7 @@ From the "**Overview**" page, select an existing integration account and take no
 
 ![Zscaler_Integration_Account_1](Images/Zscaler_Integration_Account_1.png)
 
-Select the subscription and resource group that this playbook will be deployed to and a name for the integration account, such as "**Zscaler-add-Domains-to-URL-Category**". Review the region and select a pricing tier, then click "**Review + create**".
+Select the subscription and resource group that this playbook will be deployed to and a name for the integration account, such as "**AS-Zscaler-Integration**". Review the region and select a pricing tier, then click "**Review + create**".
 
 ![Zscaler_Integration_Account_2](Images/Zscaler_Integration_Account_2.png)
 
@@ -129,7 +129,7 @@ Select an existing key vault or create a new one. From the key vault overview pa
 
 ![Zscaler_Key_Vault_1](Images/Zscaler_Key_Vault_1.png)
 
-Choose a name for the secret, such as "**Zscaler-add-Domains-to-URL-Category-API-Key**” and enter the Zscaler API key copied previously in the "**Value**" field. All other settings can be left as is. Click "**Create**". 
+Choose a name for the secret, such as "**AS-Zscaler-Integration-API-Key**” and enter the Zscaler API key copied previously in the "**Value**" field. All other settings can be left as is. Click "**Create**". 
 
 ![Zscaler_Key_Vault_2](Images/Zscaler_Key_Vault_2.png)
 
@@ -161,7 +161,7 @@ In the **Project Details** section:
 
 In the **Instance Details** section:  
                                                   
-* **Playbook Name**: This can be left as "**Zscaler-add-Domains-to-URL-Category**" or you may change it. 
+* **Playbook Name**: This can be left as "**AS-Zscaler-Integration**" or you may change it. 
 
 * **IntegrationAccountName**: Enter the name of the Microsoft integration account this playbook will use. Please note that the playbook and integration account must share the same resource group.
 
@@ -222,7 +222,7 @@ Select the "**Get**" checkbox under "**Secret permissions**", then click "**Next
 
 ![Zscaler_Access_2](Images/Zscaler_Access_2.png)
 
-Paste "**Zscaler-add-Domains-to-URL-Category**" into the principal search box and click the option that appears. Click "**Next**" towards the bottom of the page.
+Paste "**AS-Zscaler-Integration**" into the principal search box and click the option that appears. Click "**Next**" towards the bottom of the page.
 
 ![Zscaler_Access_3](Images/Zscaler_Access_3.png)
 
