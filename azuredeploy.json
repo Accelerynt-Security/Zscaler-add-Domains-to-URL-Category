@@ -17,7 +17,7 @@
     },
     "parameters": {
         "PlaybookName": {
-            "defaultValue": "AS-Zscaler-Integration",
+            "defaultValue": "Zscaler-add-Domains-to-URL-Category",
             "type": "string"
         },
         "IntegrationAccountName": {
