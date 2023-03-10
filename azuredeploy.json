@@ -211,141 +211,125 @@
                                 ]
                             }
                         },
-                        "Initialize_variable-_Extracted_Domain_Initial": {
+                        "Initialize_variable-_Extracted_Domain_Remove_Path": {
+                            "runAfter": {
+                                "Initialize_variable-_Extracted_Domain_Remove_Subdomain": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
                             "inputs": {
                                 "variables": [
                                     {
-                                        "name": "Extracted Domain Initial",
+                                        "name": "Extracted Domain - Remove Path",
                                         "type": "string"
                                     }
                                 ]
-                            },
+                            }
+                        },
+                        "Initialize_variable-_Extracted_Domain_Remove_Protocol": {
                             "runAfter": {
                                 "Initialize_variable-_Domain_Names": [
                                     "Succeeded"
                                 ]
                             },
-                            "type": "InitializeVariable"
-                        },
-                        "Initialize_variable-_Extracted_Domain_Middle": {
+                            "type": "InitializeVariable",
                             "inputs": {
                                 "variables": [
                                     {
-                                        "name": "Extracted Domain Middle",
+                                        "name": "Extract Domain - Remove Protocol",
+                                        "type": "string"
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_variable-_Extracted_Domain_Remove_Subdomain": {
+                            "runAfter": {
+                                "Initialize_variable-_Extracted_Domain_Remove_Protocol": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "Extracted Domain - Remove Subdomain",
+                                        "type": "string"
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_variable-_Extracted_Domain_Zscaler_Formatting_": {
+                            "runAfter": {
+                                "Initialize_variable-_Extracted_Domain_Remove_Path": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "Extracted Domain - Zscaler Formatting",
                                         "type": "string"
                                     }
                                 ]
                             },
-                            "runAfter": {
-                                "Initialize_variable-_Extracted_Domain_Initial": [
-                                    "Succeeded"
-                                ]
-                            },
-                            "type": "InitializeVariable"
-                        },
-                        "Initialize_variable-_Extracted_Domain_Final": {
-                            "inputs": {
-                                "variables": [
-                                    {
-                                        "name": "Extracted Domain Final",
-                                        "type": "string"
-                                    }
-                                ]
-                            },
-                            "runAfter": {
-                                "Initialize_variable-_Extracted_Domain_Middle": [
-                                    "Succeeded"
-                                ]
-                            },
-                            "type": "InitializeVariable"
+                            "description": "Domains added to Zscaler URL Categories must be prepended with a dot. This will hold the final result of the extracted domain, with a prepended dot, if needed."
                         },
                         "For_each-_URLs": {
+                            "foreach": "@body('Entities_-_Get_URLs')?['URLs']",
                             "actions": {
                                 "Append_to_array_variable-_Domain_Names": {
+                                    "runAfter": {
+                                        "Condition-_URL_parsing_zscaler_formatting": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "AppendToArrayVariable",
                                     "inputs": {
                                         "name": "Domain Names",
-                                        "value": "@variables('Extracted Domain Final')"
-                                    },
-                                    "runAfter": {
-                                        "Condition-_URL_parsing_end": [
-                                            "Succeeded"
-                                        ]
-                                    },
-                                    "type": "AppendToArrayVariable"
+                                        "value": "@variables('Extracted Domain - Zscaler Formatting')"
+                                    }
                                 },
-                                "Condition-_URL_parsing_end": {
-                                    "actions": {
-                                        "Set_variable": {
-                                            "inputs": {
-                                                "name": "Extracted Domain Final",
-                                                "value": "@{concat('.',substring(variables('Extracted Domain Middle'), 0, int(indexOf(variables('Extracted Domain Middle'), '/'))))}"
-                                            },
-                                            "runAfter": {},
-                                            "type": "SetVariable"
-                                        }
-                                    },
-                                    "else": {
-                                        "actions": {
-                                            "Set_variable_2": {
-                                                "inputs": {
-                                                    "name": "Extracted Domain Final",
-                                                    "value": "@{concat('.',variables('Extracted Domain Middle'))}"
-                                                },
-                                                "runAfter": {},
-                                                "type": "SetVariable"
-                                            }
-                                        }
-                                    },
-                                    "expression": {
-                                        "and": [
-                                            {
-                                                "contains": [
-                                                    "@variables('Extracted Domain Middle')",
-                                                    "/"
-                                                ]
-                                            }
-                                        ]
-                                    },
-                                    "runAfter": {
-                                        "Condition-_URL_parsing_middle": [
-                                            "Succeeded"
-                                        ]
-                                    },
-                                    "type": "If"
-                                },
-                                "Condition-_URL_parsing_initial": {
+                                "Condition-_URL_parsing_remove_https_protocol": {
                                     "actions": {
                                         "Set_variable-_Remove_https": {
-                                            "inputs": {
-                                                "name": "Extracted Domain Initial",
-                                                "value": "@{replace(items('For_each-_URLs')?['url'],'https://', '')}"
-                                            },
                                             "runAfter": {},
-                                            "type": "SetVariable"
+                                            "type": "SetVariable",
+                                            "inputs": {
+                                                "name": "Extract Domain - Remove Protocol",
+                                                "value": "@{replace(items('For_each-_URLs')?['url'],'https://', '')}"
+                                            }
                                         }
+                                    },
+                                    "runAfter": {
+                                        "Set_variable-_clear_extracted_domain_zscaler_formatting": [
+                                            "Succeeded"
+                                        ]
                                     },
                                     "else": {
                                         "actions": {
-                                            "Condition": {
+                                            "Condition_-_URL_parsing_remove_http_protocol": {
                                                 "actions": {
                                                     "Set_variable-_Remove_http": {
-                                                        "inputs": {
-                                                            "name": "Extracted Domain Initial",
-                                                            "value": "@{replace(items('For_each-_URLs')?['url'],'http://', '')}"
-                                                        },
                                                         "runAfter": {},
-                                                        "type": "SetVariable"
+                                                        "type": "SetVariable",
+                                                        "inputs": {
+                                                            "name": "Extract Domain - Remove Protocol",
+                                                            "value": "@{replace(items('For_each-_URLs')?['url'],'http://', '')}"
+                                                        }
                                                     }
                                                 },
+                                                "runAfter": {},
                                                 "else": {
                                                     "actions": {
-                                                        "Set_variable-_Default_initial": {
-                                                            "inputs": {
-                                                                "name": "Extracted Domain Initial",
-                                                                "value": "@{items('For_each-_URLs')?['url']}"
-                                                            },
+                                                        "Set_variable-_No_protocol": {
                                                             "runAfter": {},
-                                                            "type": "SetVariable"
+                                                            "type": "SetVariable",
+                                                            "inputs": {
+                                                                "name": "Extract Domain - Remove Protocol",
+                                                                "value": "@{items('For_each-_URLs')?['url']}"
+                                                            }
                                                         }
                                                     }
                                                 },
@@ -359,7 +343,6 @@
                                                         }
                                                     ]
                                                 },
-                                                "runAfter": {},
                                                 "type": "If"
                                             }
                                         }
@@ -374,33 +357,73 @@
                                             }
                                         ]
                                     },
+                                    "type": "If"
+                                },
+                                "Condition-_URL_parsing_remove_path": {
+                                    "actions": {
+                                        "Set_variable_-_Remove_URL_path": {
+                                            "runAfter": {},
+                                            "type": "SetVariable",
+                                            "inputs": {
+                                                "name": "Extracted Domain - Remove Path",
+                                                "value": "@{substring(variables('Extracted Domain - Remove Subdomain'), 0, int(indexOf(variables('Extracted Domain - Remove Subdomain'), '/')))}"
+                                            }
+                                        }
+                                    },
                                     "runAfter": {
-                                        "Set_variable-_Clear_final": [
+                                        "Condition-_URL_parsing_remove_www._subdomain": [
                                             "Succeeded"
+                                        ]
+                                    },
+                                    "else": {
+                                        "actions": {
+                                            "Set_variable_-_No_URL_path": {
+                                                "runAfter": {},
+                                                "type": "SetVariable",
+                                                "inputs": {
+                                                    "name": "Extracted Domain - Remove Path",
+                                                    "value": "@variables('Extracted Domain - Remove Subdomain')"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "expression": {
+                                        "and": [
+                                            {
+                                                "contains": [
+                                                    "@variables('Extracted Domain - Remove Subdomain')",
+                                                    "/"
+                                                ]
+                                            }
                                         ]
                                     },
                                     "type": "If"
                                 },
-                                "Condition-_URL_parsing_middle": {
+                                "Condition-_URL_parsing_remove_www._subdomain": {
                                     "actions": {
-                                        "Set_variable-_remove_www._middle": {
-                                            "inputs": {
-                                                "name": "Extracted Domain Middle",
-                                                "value": "@{replace(variables('Extracted Domain Initial'), 'www.', '')}"
-                                            },
+                                        "Set_variable-_remove_www._subdomain": {
                                             "runAfter": {},
-                                            "type": "SetVariable"
+                                            "type": "SetVariable",
+                                            "inputs": {
+                                                "name": "Extracted Domain - Remove Subdomain",
+                                                "value": "@{replace(variables('Extract Domain - Remove Protocol'), 'www.', '')}"
+                                            }
                                         }
+                                    },
+                                    "runAfter": {
+                                        "Condition-_URL_parsing_remove_https_protocol": [
+                                            "Succeeded"
+                                        ]
                                     },
                                     "else": {
                                         "actions": {
-                                            "Set_variable-_Default_middle": {
-                                                "inputs": {
-                                                    "name": "Extracted Domain Middle",
-                                                    "value": "@variables('Extracted Domain Initial')"
-                                                },
+                                            "Set_variable-_No_www._subdomain": {
                                                 "runAfter": {},
-                                                "type": "SetVariable"
+                                                "type": "SetVariable",
+                                                "inputs": {
+                                                    "name": "Extracted Domain - Remove Subdomain",
+                                                    "value": "@variables('Extract Domain - Remove Protocol')"
+                                                }
                                             }
                                         }
                                     },
@@ -408,64 +431,110 @@
                                         "and": [
                                             {
                                                 "startsWith": [
-                                                    "@variables('Extracted Domain Initial')",
+                                                    "@variables('Extract Domain - Remove Protocol')",
                                                     "www."
                                                 ]
                                             }
                                         ]
                                     },
+                                    "type": "If"
+                                },
+                                "Condition-_URL_parsing_zscaler_formatting": {
+                                    "actions": {
+                                        "Set_variable_-_No_additional_formatting_needed": {
+                                            "runAfter": {},
+                                            "type": "SetVariable",
+                                            "inputs": {
+                                                "name": "Extracted Domain - Zscaler Formatting",
+                                                "value": "@variables('Extracted Domain - Remove Path')"
+                                            }
+                                        }
+                                    },
                                     "runAfter": {
-                                        "Condition-_URL_parsing_initial": [
+                                        "Condition-_URL_parsing_remove_path": [
                                             "Succeeded"
+                                        ]
+                                    },
+                                    "else": {
+                                        "actions": {
+                                            "Set_variable_-_Prepend_dot": {
+                                                "runAfter": {},
+                                                "type": "SetVariable",
+                                                "inputs": {
+                                                    "name": "Extracted Domain - Zscaler Formatting",
+                                                    "value": "@{concat('.', variables('Extracted Domain - Remove Path'))}"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "expression": {
+                                        "and": [
+                                            {
+                                                "startsWith": [
+                                                    "@variables('Extracted Domain - Remove Path')",
+                                                    "."
+                                                ]
+                                            }
                                         ]
                                     },
                                     "type": "If"
                                 },
-                                "Set_variable-_Clear_final": {
-                                    "inputs": {
-                                        "name": "Extracted Domain Final",
-                                        "value": "''"
-                                    },
+                                "Set_variable-_clear_extracted_domain_remove_path": {
                                     "runAfter": {
-                                        "Set_variable-_Clear_middle": [
+                                        "Set_variable-_clear_extracted_domain_remove_subdomain": [
                                             "Succeeded"
                                         ]
                                     },
-                                    "type": "SetVariable"
-                                },
-                                "Set_variable-_Clear_initial": {
+                                    "type": "SetVariable",
                                     "inputs": {
-                                        "name": "Extracted Domain Initial",
+                                        "name": "Extracted Domain - Remove Path",
                                         "value": "''"
-                                    },
+                                    }
+                                },
+                                "Set_variable-_clear_extracted_domain_remove_protocol": {
                                     "runAfter": {},
-                                    "type": "SetVariable"
-                                },
-                                "Set_variable-_Clear_middle": {
+                                    "type": "SetVariable",
                                     "inputs": {
-                                        "name": "Extracted Domain Middle",
+                                        "name": "Extract Domain - Remove Protocol",
                                         "value": "''"
-                                    },
+                                    }
+                                },
+                                "Set_variable-_clear_extracted_domain_remove_subdomain": {
                                     "runAfter": {
-                                        "Set_variable-_Clear_initial": [
+                                        "Set_variable-_clear_extracted_domain_remove_protocol": [
                                             "Succeeded"
                                         ]
                                     },
-                                    "type": "SetVariable"
+                                    "type": "SetVariable",
+                                    "inputs": {
+                                        "name": "Extracted Domain - Remove Subdomain",
+                                        "value": "''"
+                                    }
+                                },
+                                "Set_variable-_clear_extracted_domain_zscaler_formatting": {
+                                    "runAfter": {
+                                        "Set_variable-_clear_extracted_domain_remove_path": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "SetVariable",
+                                    "inputs": {
+                                        "name": "Extracted Domain - Zscaler Formatting",
+                                        "value": "''"
+                                    }
                                 }
                             },
-                            "foreach": "@body('Entities_-_Get_URLs')?['URLs']",
                             "runAfter": {
-                                "Initialize_variable-_Extracted_Domain_Final": [
+                                "Initialize_variable-_Extracted_Domain_Zscaler_Formatting_": [
                                     "Succeeded"
                                 ]
                             },
+                            "type": "Foreach",
                             "runtimeConfiguration": {
                                 "concurrency": {
                                     "repetitions": 1
                                 }
-                            },
-                            "type": "Foreach"
+                            }
                         },
                         "Execute_JavaScript_Code_Date": {
                             "inputs": {
