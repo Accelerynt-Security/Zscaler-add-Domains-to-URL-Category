@@ -1,4 +1,4 @@
-# Zscaler-add-Domains-to-URL-Category
+# AS-Add-Domains-to-Zscaler-URL-Category
 
 Author: Accelerynt
 
@@ -161,7 +161,7 @@ In the **Project Details** section:
 
 In the **Instance Details** section:  
                                                   
-* **Playbook Name**: This can be left as "**Zscaler-add-Domains-to-URL-Category**" or you may change it. 
+* **Playbook Name**: This can be left as "**AS-Add-Domains-to-Zscaler-URL-Category**" or you may change it. 
 
 * **IntegrationAccountName**: Enter the name of the Microsoft integration account this playbook will use. Please note that the playbook and integration account must share the same resource group.
 
@@ -222,7 +222,7 @@ Select the "**Get**" checkbox under "**Secret permissions**", then click "**Next
 
 ![Zscaler_Access_2](Images/Zscaler_Access_2.png)
 
-Paste "**AS-Zscaler-Integration**" into the principal search box and click the option that appears. Click "**Next**" towards the bottom of the page.
+Paste "**AS-Add-Domains-to-Zscaler-URL-Category**" or the alternative playbook name used into the principal search box and click the option that appears. Click "**Next**" towards the bottom of the page.
 
 ![Zscaler_Access_3](Images/Zscaler_Access_3.png)
 
