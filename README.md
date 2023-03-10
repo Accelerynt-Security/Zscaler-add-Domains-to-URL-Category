@@ -161,7 +161,7 @@ In the **Project Details** section:
 
 In the **Instance Details** section:  
                                                   
-* **Playbook Name**: This can be left as "**AS-Zscaler-Integration**" or you may change it. 
+* **Playbook Name**: This can be left as "**Zscaler-add-Domains-to-URL-Category**" or you may change it. 
 
 * **IntegrationAccountName**: Enter the name of the Microsoft integration account this playbook will use. Please note that the playbook and integration account must share the same resource group.
 
