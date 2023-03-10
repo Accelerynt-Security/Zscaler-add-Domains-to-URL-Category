@@ -5,7 +5,7 @@
         "title": "Zscaler-add-Domains-to-URL-Category", 
         "description": "This playbook will extract domains from Microsoft Sentinel incidents and add them to a Zscaler Custom URL Category of your choice.",
         "prerequisites": "1. A configured Zscaler admin account is needed, along with a username, password, and API token for this account. 2. A Zscaler URL Category is also needed. 3. A Microsoft Azure integration account and Azure key vault containing the Zscaler account password and API token must also be set up. Support for the set up and configuration of each of these items can be found here: https://github.com/Accelerynt-Security/Zscaler-add-Domains-to-URL-Category",
-        "lastUpdateTime": "2022-09-29T18:18:05Z",
+        "lastUpdateTime": "2023-03-09T17:06:04Z",
         "entities": ["URL"], 
         "tags": ["Microsoft Sentinel", "Incident", "Zscaler", "URL Categories"], 
         "support": {
