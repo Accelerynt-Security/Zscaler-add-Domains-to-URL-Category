@@ -188,6 +188,8 @@ Once the resources have validated, click on "**Create**".
 The resources should take around a minute to deploy. Once the deployment is complete, you can expand the "**Deployment details**" section to view them.
 You can view the logic app by clicking the corresponding resource.
 
+![Zscaler_Deploy_3](Images/Zscaler_Deploy_3.png)
+
 #
 ### Granting Access to Azure Key Vault
 
